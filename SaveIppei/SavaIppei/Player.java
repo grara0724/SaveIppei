@@ -2,22 +2,22 @@
 public class Player {
 
 	//	String playername;
-	private int havemoney;
+	private int pocketMoney;
 
 	public Player() {
 
 	}
 
-	public int getHaveMoney() {
-		return havemoney;
+	public int getpocketMoney() {
+		return pocketMoney;
 	}
 
-	public void setHaveMoney(int havemoney) {
-		this.havemoney = havemoney;
+	public void setpocketMoney(int pocketMoney) {
+		this.pocketMoney = pocketMoney;
 	}
 
 	public void showMoney() {
-		System.out.println("あなたの所持金は" + havemoney + "円です。");
+		System.out.println("あなたの所持金は" + pocketMoney + "円です。");
 	}
 
 }

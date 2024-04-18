@@ -3,65 +3,54 @@ import java.util.Scanner;
 
 public class PlayCasino {
 
-	public static void main(String[] args) {
-
-		//スキャナーの呼び出し		
-		Scanner scan = new Scanner(System.in);
-
-		//インスタンス化			
+	public static void main(String[] args) {		
+		Scanner scan = new Scanner(System.in);			
 		Player player = new Player();
 		Text text = new Text();
-
-		int gamestart;
-
-		//初期の所持金10万円をセット		
+		
+		boolean isStart;
+		
 		player.setHaveMoney(100000);
-
-		//ゲームを始める
+		
 		System.out.println("一平を救え！～目指せギャンブル王～\r\n(Enterで進む)");
 		scan.nextLine();
-		System.out.println("ゲームを始めますか？\r\n1:始める  2:始めない");
-
-		//例外処理
-		while (true) { //無限ループ
+		
+		//ゲームのスタート有無を選択
+		while (true) {
 			try {
-				gamestart = scan.nextInt();
-				break; //数字が入力されるとループから抜け出す
-			} catch (InputMismatchException e) {
-				System.out.println("1か2を選んでください\r\n(Enterで進む)");
-				scan.next();
-				scan.nextLine();
-				scan.nextLine();
 				System.out.println("ゲームを始めますか？\r\n1:始める  2:始めない");
-				gamestart = 0;
+				int tmp;
+				tmp = scan.nextInt();
+				if( tmp > 2 && tmp < 1 ) continue;
+				
+				isStart = (tmp == 1) ? true : false;
+
+				break;
+			} catch (InputMismatchException e) {
+				System.out.println("[Error]:1か2を選んでください");
+				scan.nextLine();
+				continue;
 			}
 		}
-		while (true) {
+		
+		//ゲームの処理
+		if (isStart) {
 
-			if (gamestart == 1) {
+			//ゲームのストーリー説明
+			text.showText2();
 
-				//ゲームのストーリー説明
-				text.showText2();
+			//名前の登録+playernameに入力された名前をセット
+			player.playername = scan.nextLine();
 
-				//名前の登録+playernameに入力された名前をセット
-				player.playername = scan.nextLine();
+			//10万円もっていることを説明
 
-				//10万円もっていることを説明
+			//選べるギャンブルの説明
 
-				//選べるギャンブルの説明
+			//ここからfor文とif文を組み合わせてお金があればゲームを続けるかやめるかを選べる
+			//お金がなくてもお金を借りれば続行		
 
-				//ここからfor文とif文を組み合わせてお金があればゲームを続けるかやめるかを選べる
-				//お金がなくてもお金を借りれば続行		
+			//遊ぶギャンブルを選ぶ(havemoneyが1以上なら)
 
-				//遊ぶギャンブルを選ぶ(havemoneyが1以上なら)
-
-				//ゲームオーバーもしくは大谷翔平からお金を借りる(havemoneyが0なら)
-
-			} else if (gamestart == 2) {
-				break;
-			} else {
-				System.out.println("1か2を選んでください\r\nゲームを始めますか？\\r\\n1:始める  2:始めない");
-			}
 
 		}
 
