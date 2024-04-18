@@ -1,7 +1,7 @@
 
 public class Player {
 
-	String playername;
+	//	String playername;
 	private int havemoney;
 
 	public Player() {
