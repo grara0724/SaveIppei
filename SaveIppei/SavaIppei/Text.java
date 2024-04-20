@@ -63,7 +63,7 @@ public class Text {
 			}
 		}
 		System.out.println("よくぞこの選択肢を選んでくださいました。\r\n(Enterで進む)");
-
+		scan.nextLine();
 	}
 
 }

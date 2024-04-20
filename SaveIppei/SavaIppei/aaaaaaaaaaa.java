@@ -1,4 +1,3 @@
-
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map;
@@ -6,64 +5,59 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-public class Roulette extends Gamble {
+public class aaaaaaaaaaa extends Gamble {
 
-	int hitNumber;
-	int num;
-	String betPosition;//何に賭けたか
-	String hitPosition1;//偶数か奇数か
-	String hitPosition2;//範囲はどこか
-	Map<String, Integer> betPositions = new HashMap<String, Integer>();//何に賭けたかとその倍率のリスト
+	public static void main(String[] args) {
 
-	Scanner scan = new Scanner(System.in);
+		int hitNumber;
+		int playerNumber;
+		int num;
+		int ods;
+		String betPosition;
+		String hitPosition1;//偶数か奇数か
+		String hitPosition2;//範囲はどこか
+		Map<String, Integer> betPositions = new HashMap<String, Integer>();
+		Scanner scan = new Scanner(System.in);
 
-	public Roulette() {
-	}
-
-	//	ゲームスタート
-	public void playRoulette() {
+		//	ゲームスタート
+		//	public void playRoulette() {
 		System.out.println("ルーレットルームへようこそ\r\n(Enterで進む)");
 		scan.nextLine();
 
 		while (true) {
 			//どの賭け方をするか
-			chooseBet();
+			betrool();
 
 			switch (num) {
 			//偶数か奇数かを賭けた場合		
 			case 1:
-				betEorO();
+				betGusu();
 				break;
 
 			//数字の範囲を賭けた場合
 			case 2:
-				betField();
+				bethani();
 				break;
 
 			//数字を賭けた場合
 			case 3:
-				betNumber();
+				betnum();
 				break;
 
 			}
-			//所持金が0になったら強制勝負
-			if (getPocketMoney() == 0) {
-				break;
-			}
+
 			//他にも賭けるか？	
 			reBet();
 			if (num == 1) {
 				continue;
 			} else {
 				break;
-
 			}
 
 		}
 
 		//結果表示と精算
 		Result();
-
 	}
 
 	private void reBet() {
@@ -88,9 +82,10 @@ public class Roulette extends Gamble {
 		}
 	}
 
-	private void betNumber() {
+	private void betnum() {
 		while (true) {
 			try {
+
 				System.out.println("どの数字にかけますか？");
 				num = scan.nextInt();
 				if (num < 1 && num > 36) {
@@ -107,10 +102,11 @@ public class Roulette extends Gamble {
 				continue;
 			}
 		}
-		betPositions.put("$" + Integer.toString(num) + "$", 36);
+		betPositions.put(Integer.toString(num), 36);
+
 	}
 
-	private void betField() {
+	private void bethani() {
 		while (true) {
 			try {
 				System.out.println("どこに賭けますか？");
@@ -130,10 +126,12 @@ public class Roulette extends Gamble {
 				continue;
 			}
 		}
+
 		betPositions.put((num == 1) ? "1～12" : (num == 2) ? "13～24" : "25～36", 3);
+
 	}
 
-	private void betEorO() {
+	private void betGusu() {
 		while (true) {
 			try {
 				System.out.println("どちらに賭けますか？");
@@ -153,10 +151,12 @@ public class Roulette extends Gamble {
 				continue;
 			}
 		}
+
 		betPositions.put((num == 1) ? "偶数" : "奇数", 2);
+
 	}
 
-	private void chooseBet() {
+	private static void betrool() {
 		while (true) {
 			try {
 				System.out.println("賭け方を選んでください\r\n(Enterで進む)");
@@ -185,9 +185,8 @@ public class Roulette extends Gamble {
 		hitNumber = rand.nextInt(36) + 1;
 		hitPosition1 = (hitNumber % 2 == 1) ? "奇数" : "偶数";
 		hitPosition2 = (hitNumber <= 12) ? "1～12" : (hitNumber <= 24) ? "13～24" : "25～36";
-		String hitPosition = ("$" + Integer.toString(hitNumber) + "$" + "," + hitPosition1 + "," + hitPosition2);
-		String showHitPosition = (Integer.toString(hitNumber) + "," + hitPosition1 + "," + hitPosition2);
-		System.out.println("結果:" + showHitPosition);
+		String hitPosition = (Integer.toString(hitNumber) + "," + hitPosition1 + "," + hitPosition2);
+		System.out.println(hitPosition);
 
 		Set<String> keys = betPositions.keySet();
 		int count = 0;
@@ -195,25 +194,22 @@ public class Roulette extends Gamble {
 		for (String str : keys) {
 			if (hitPosition.indexOf(str) != -1) {
 				count = 1;
-				winMoney(betPositions.get(str));
-				totalWinMoney += winMoney;
+				winMoney(betPositions.get(keys));
+				totalWinMoney = ++winMoney;
 			} else {
 			}
 		}
 		if (count == 1) {
-			System.out.println("あたり！あなたは" + totalWinMoney + "円獲得しました");
-			showPocketMoney();
-			System.out.println("\r\n(Enterで進む)");
+			System.out.println("あなたは" + totalWinMoney + "獲得しました。\r\n(Enterで進む)");
 			scan.nextLine();
-			scan.nextLine();
-
+			
 		}
 		if (count == 0) {
-			System.out.print("はずれ...");
+			System.out.println("はずれ...\r\n(Enterで進む)");
 			showPocketMoney();
-			System.out.println("\r\n(Enterで進む)");
 			scan.nextLine();
-			scan.nextLine();
-		}
+			
+//		}
+
 	}
 }
