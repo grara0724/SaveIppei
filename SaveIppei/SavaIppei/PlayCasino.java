@@ -7,6 +7,7 @@ public class PlayCasino {
 
 		//インスタンス化			
 		Roulette roulette = new Roulette();
+		HorseRacing horseRacing = new HorseRacing();
 		Scanner scan = new Scanner(System.in);
 		Player player = new Player();
 		Text text = new Text();
@@ -58,7 +59,7 @@ public class PlayCasino {
 				try {
 
 					System.out.println("どのゲームを選びますか？");
-					System.out.println("1:ルーレット");
+					System.out.println("1:ルーレット  2競馬");
 					gameNumber = scan.nextInt();
 					if (gameNumber > 3 || gameNumber < 1) {
 						System.out.println("正しい数字を入力してください/r/n(Enterで進む)");
@@ -75,7 +76,8 @@ public class PlayCasino {
 				switch (gameNumber) {
 				case 1:
 					roulette.playRoulette();
-
+				case 2:
+					horseRacing.playHorseRacing();
 				}
 				//名前の登録+playernameに入力された名前をセット
 				//			
