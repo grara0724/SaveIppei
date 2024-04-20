@@ -21,7 +21,7 @@ public class Roulette extends Gamble {
 	}
 
 	//	ゲームスタート
-	public void playRoulette() {
+	public void playRoulette() throws InterruptedException {
 		System.out.println("ルーレットルームへようこそ\r\n(Enterで進む)");
 		scan.nextLine();
 
@@ -60,6 +60,8 @@ public class Roulette extends Gamble {
 			}
 
 		}
+		//ルーレットを回す
+		spinRoulette();
 
 		//結果表示と精算
 		Result();
@@ -204,16 +206,50 @@ public class Roulette extends Gamble {
 		}
 	}
 
+	//ルーレットが回っている様子を再現するメソッド
+	private void spinRoulette() throws InterruptedException {
+		System.out.println("ルーレットが回っています...");
+		Thread.sleep(700);
+		for (int i = 0; i < 7; i++) {
+			hitNumber = new Random().nextInt(36) + 1;
+			System.out.print("\r" + hitNumber);
+			Thread.sleep(200); // 数字を表示する間隔を設定
+		}
+		for (int i = 0; i < 2; i++) {
+			hitNumber = new Random().nextInt(36) + 1;
+			System.out.print("\r" + hitNumber);
+			Thread.sleep(600);
+		}
+		for (int i = 0; i < 2; i++) {
+			hitNumber = new Random().nextInt(36) + 1;
+			System.out.print("\r" + hitNumber);
+			Thread.sleep(1000);
+		}
+		for (int i = 0; i < 2; i++) {
+			hitNumber = new Random().nextInt(36) + 1;
+			System.out.print("\r" + hitNumber);
+			Thread.sleep(1400);
+		}
+
+	}
+
 	//賭けた内容と結果が一致するかの判定とそれに応じて精算するメソッド	
-	private void Result() {
-		Random rand = new Random();
-		hitNumber = rand.nextInt(36) + 1;
+	private void Result() throws InterruptedException {
+		System.out.println();
+		System.out.println("Enterをおせ！");
+		scan.nextLine();
+		scan.nextLine();
+		hitNumber = new Random().nextInt(36) + 1;
+		System.out.println("\r\n" + hitNumber);
+		Thread.sleep(2000);
+		System.out.println("精算を確認する\r\n(Enterで進む)");
+		scan.nextLine();
 
 		//出た数字から当たりを判定するための文章を生成（当たり判定用の文章とは別に、結果に表示される文章も生成）		
 		hitPosition1 = (hitNumber % 2 == 1) ? "奇数" : "偶数";
 		hitPosition2 = (hitNumber <= 12) ? "1～12" : (hitNumber <= 24) ? "13～24" : "25～36";
 		String hitPosition = ("$" + Integer.toString(hitNumber) + "$" + "," + hitPosition1 + "," + hitPosition2);
-		String showHitPosition = ("結果:" + Integer.toString(hitNumber) + "," + hitPosition1 + "," + hitPosition2);
+		String showHitPosition = ("結果:" + Integer.toString(hitNumber) + "(" + hitPosition1 + "," + hitPosition2 + ")");
 		System.out.println(showHitPosition);
 
 		//betPositionsマップから値（ods）を取り出す
@@ -236,16 +272,15 @@ public class Roulette extends Gamble {
 		if (count == 1) {
 			System.out.println("あたり！あなたは" + totalWinMoney + "円獲得しました");
 			showPocketMoney();
-			System.out.println("\r\n(Enterで進む)");
-			scan.nextLine();
+			System.out.println("(Enterで進む)");
 			scan.nextLine();
 
 		} else {
 			System.out.print("はずれ...");
 			showPocketMoney();
-			System.out.println("\r\n(Enterで進む)");
+			System.out.println("(Enterで進む)");
 			scan.nextLine();
-			scan.nextLine();
+
 		}
 	}
 }

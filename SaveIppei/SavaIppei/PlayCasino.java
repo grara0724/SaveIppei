@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class PlayCasino {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 
 		//インスタンス化			
 		Roulette roulette = new Roulette();
